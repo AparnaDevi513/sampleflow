@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="dbfdac75-d898-4b01-8149-b2c09f7e5433" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="sampleflowFlow1" doc:id="75cdd991-f7bc-45fe-932f-999007f4b784" >
+		<http:listener doc:name="Listener" doc:id="9cf16bc8-4654-459c-9bbf-c20cadd33659" config-ref="HTTP_Listener_config" path="/sampleflow"/>
+		<flow-ref doc:name="Flow Reference" doc:id="fa6c7b2b-5978-49ab-9254-f7f9e2a9378c" name="sampleflowFlow"/>
+		<logger level="INFO" doc:name="Logger" doc:id="e991e5a6-9672-4dcd-ad92-d11754a17898" message='#["Hello word"]'/>
+		<flow-ref doc:name="Flow Reference" doc:id="630e5ca7-ce4e-4a02-8c4e-e882592ca2e0" name="sampleflowSub_Flow"/>
+		<logger level="INFO" doc:name="Logger" doc:id="e546f04b-4438-48dd-9a17-90593ab03af5" message='#["End"]'/>
+	</flow>
+	<sub-flow name="sampleflowSub_Flow" doc:id="fafa266d-6608-48da-851a-9215645314b2" >
+		<logger level="INFO" doc:name="Logger" doc:id="47c35795-8388-4f74-ae8e-4ace2501836d" message='#["subflow print"]'/>
+	</sub-flow>
+	<flow name="sampleflowFlow" doc:id="b81b1e5b-a1f4-46dc-a486-64bb07dd93a6" >
+		<logger level="INFO" doc:name="Logger" doc:id="efcbd7ac-4627-4616-bd1c-ab9e5c8a084e" message='#["second flow"]'/>
+	</flow>
+</mule>
